@@ -27,7 +27,9 @@ class Main:
             bot = telebot.TeleBot(self.token)
 
             def telegram_sender():
-                bot.send_message(self.room, 'Current Bitcoin Price is : ' + str(self.current_price))
+                bot.send_message(self.room, 'Current Bitcoin Price is : ' + str(self.current_price) + '$' '\n' +
+                                 'Previous Price is : ' + str(self.previous_price) + '$' '\n' +
+                                 'The difference is : ' + str(round((100 / (self.current_price / (self.current_price - self.previous_price))), 2)) + '%')
 
             def process_message(msg):
                 if msg['e'] == 'error':
@@ -61,18 +63,14 @@ class Main:
                         time.sleep(0.1)
                 while True:
                     if counting_difference():
-                        print('hmm1')
+
                         adding_to_database('Price changed for more than ')
                         telegram_sender()
-                        print(str(self.current_price) + ' ' + str(self.previous_price))
-                        self.previous_price = self.current_price
+                        self.previous_price = self.current_price + 800
                         time.sleep(self.timing)
-
                     elif not counting_difference():
-                        print('hmm2')
                         adding_to_database('Price changed less than ')
-                        print(str(self.current_price) + ' ' + str(self.previous_price))
-                        self.previous_price = self.current_price
+                        self.previous_price = self.current_price + 800
                         time.sleep(self.timing)
 
             #BinanceSocketManager([self.login, self.password])
