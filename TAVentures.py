@@ -27,8 +27,8 @@ class Main:
             bot = telebot.TeleBot(self.token)
 
             def telegram_sender():
-                percent_difference_for_pep8 = str(round((100 / (self.current_price /
-                                                                (self.current_price - self.previous_price))), 2)) + '%'
+                percent_difference_for_pep8 = str(round(((100 * (self.previous_price - self.current_price))
+                                                         / self.previous_price), 2)) + '%'
                 bot.send_message(self.room, 'Current Bitcoin Price is : ' + str(self.current_price) + '$' '\n' +
                                  'Previous Price is : ' + str(self.previous_price) + '$' '\n' +
                                  'The difference is : ' + percent_difference_for_pep8)
@@ -43,8 +43,7 @@ class Main:
             # Counting difference in percent between previous and current price
 
             def counting_difference():
-                if float((self.previous_price - self.previous_price * (self.percent / 100))) >= float(
-                        self.current_price):
+                if float(((100 * (self.previous_price - self.current_price)) / self.previous_price)) > self.percent:
                     return True
                 else:
                     return False
