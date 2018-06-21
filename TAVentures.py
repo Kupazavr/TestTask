@@ -28,7 +28,7 @@ class Main:
 
             def telegram_sender():
                 percent_difference_for_pep8 = str(round(((100 * (self.previous_price - self.current_price))
-                                                         / self.previous_price), 2)) + '%'
+                                                         / self.previous_price), 3)) + '%'
                 bot.send_message(self.room, 'Current Bitcoin Price is : ' + str(self.current_price) + '$' '\n' +
                                  'Previous Price is : ' + str(self.previous_price) + '$' '\n' +
                                  'The difference is : ' + percent_difference_for_pep8)
